@@ -2,7 +2,7 @@
 # This script displays "Best School" 10 times
 
 i=10
-until [[ "$i" -le 1 ]]; do
+until [[ "$i" -le 0 ]]; do
 	echo "Best School"
 	i=$((i - 1))
 done
