@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This script displays "Best School" 10 times
+
+for i in {0..9}; do
+	if [ "$i" -ge 0 ]; then
+		echo "Best School"
+	fi
+done
