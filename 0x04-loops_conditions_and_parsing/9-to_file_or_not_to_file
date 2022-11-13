@@ -10,7 +10,7 @@ if [ -e "$FILE" ]; then
 	if [ -s "$FILE" ]; then
 		echo "school file is not empty"
 	else
-		echo "school file is not empty"
+		echo "school file is empty"
 	fi
 else
 	echo "school file does not exist"
