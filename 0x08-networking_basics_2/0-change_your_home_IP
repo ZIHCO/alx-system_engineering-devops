@@ -7,5 +7,5 @@
 cp /etc/hosts ~/hosts.old
 cp /etc/hosts ~/hosts.new
 sed -i s/^127.*localhost/"127.0.0.2\tlocalhost"/ ~/hosts.new
-echo "8.8.8.8\tfacebook.com" >> ~/hosts.new
+printf "8.8.8.8\tfacebook.com" >> ~/hosts.new
 cat ~/hosts.new > /etc/hosts
