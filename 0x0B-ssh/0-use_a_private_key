@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# connects to my server using pk
+
+ssh -i ~/.ssh/school ubuntu@54.157.146.105
