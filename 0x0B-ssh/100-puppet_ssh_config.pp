@@ -1,8 +1,17 @@
 # using puppet to set up config file for ssh
+include <stdlib>
 
-file { '/etc/ssh/config':
-  ensure  => file,
-  mode    => '600',
-  owner   => 'ubuntu',
-  content => '# ssh_conf950 man page\n; Include /etc/ssh/ssh_config.d/*.conf\n; Host *\n; PubKeyAuthentication yes\n; IndentityFile ./.ssh/school\n; GSSAPIAuthentication yes\n; SendEnv LANG LC_*\n; HashKnownHosts yes\n',
+
+file_line { 'Turn off password':
+  path    => '/etc/ssh/ssh_config',
+  ensure  => 'present',
+  line    => 'PasswordAuthentication no',
+  match   => '^PasswordAuthentication'
+}
+
+file_line { 'Identity file assignment':
+  path    => '/etc/ssh/ssh_config',
+  ensure  => 'present',
+  line    => 'IdentityFile ~/.ssh/school',
+  match   => '^IdentityFile'
 }
