@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# creates the file /var/run/myscript.pid
+
+mypid=$$
+
+echo "$mypid" > /var/run/myscript.pid
+
+trap Quit_at_signal TERM
+
+trap No_love_me INT
+
+function No_love_me()
+{
+	echo "Y U no love me?!"
+}
+
+function Quit_at_signal()
+{
+	echo "I hate the kill command"
+	rm -f /var/run/myscript.pid
+	kill -9 "$mypid"
+}
+
+i=1
+
+while (( i != 0 )); do
+	echo "To infinity and beyond"
+	sleep 2
+done
