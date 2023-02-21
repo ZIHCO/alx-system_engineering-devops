@@ -11,11 +11,11 @@ function manage_my_process ()
 		echo "$mypid" > /var/run/my_process.pid
 		echo "manage_my_process started"
 	elif [ "$args" = "stop" ]; then
-		/etc/init.d/manage_my_process stop
+		./manage_my_process stop &
 		rm -f /var/run/my_process.pid
 		echo "manage_my_process stopped"
 	elif [ "$args" = "restart" ]; then
-		/etc/init.d/manage_my_process stop
+		./manage_my_process stop &
 		rm -f /var/run/my_process.pid
 		./manage_my_process start &
 		echo "$mypid" > /var/run/my_process.pid
