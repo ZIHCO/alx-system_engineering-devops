@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# manages manage_my_process
+
+args=$1 # command
+mypid=$$
+
+function manage_my_process ()
+{
+	if [ "$args" = "start" ]; then
+		./manage_my_process start &
+		echo "$mypid" > /var/run/my_process.pid
+		echo "manage_my_process started"
+	elif [ "$args" = "stop" ]; then
+		/etc/init.d/manage_my_process stop
+		rm -f /var/run/my_process.pid
+		echo "manage_my_process stopped"
+	elif [ "$args" = "restart" ]; then
+		/etc/init.d/manage_my_process stop
+		rm -f /var/run/my_process.pid
+		./manage_my_process start &
+		echo "$mypid" > /var/run/my_process.pid
+		echo "manage_my_process restarted"
+	else
+		echo "Usage: manage_my_process {start|stop|restart}"
+
+	fi
+}
+
+manage_my_process "$args"
