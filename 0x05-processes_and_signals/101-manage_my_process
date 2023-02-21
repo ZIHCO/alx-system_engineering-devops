@@ -14,7 +14,7 @@ function manage_my_process ()
 		./manage_my_process stop &
 		sudo rm /var/run/my_process.pid
 		echo "manage_my_process stopped"
-		kill -9 "$mypid"
+		exit
 	elif [ "$args" = "restart" ]; then
 		./manage_my_process stop &
 		rm -f /var/run/my_process.pid
