@@ -8,11 +8,11 @@ function manage_my_process ()
 {
 	if [ "$args" = "start" ]; then
 		./manage_my_process start &
-		echo "$mypid" > /var/run/my_process.pid
+		sudo echo "$mypid" > /var/run/my_process.pid
 		echo "manage_my_process started"
 	elif [ "$args" = "stop" ]; then
 		./manage_my_process stop &
-		sudo rm -f /var/run/my_process.pid
+		sudo rm /var/run/my_process.pid
 		echo "manage_my_process stopped"
 		kill -9 "$mypid"
 	elif [ "$args" = "restart" ]; then
