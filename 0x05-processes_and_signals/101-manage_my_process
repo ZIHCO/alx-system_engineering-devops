@@ -17,7 +17,7 @@ function manage_my_process ()
 		exit
 	elif [ "$args" = "restart" ]; then
 		./manage_my_process stop &
-		rm -f /var/run/my_process.pid
+		sudo rm -f /var/run/my_process.pid
 		./manage_my_process start &
 		sudo echo "$mypid" | cat > /var/run/my_process.pid
 		echo "manage_my_process restarted"
