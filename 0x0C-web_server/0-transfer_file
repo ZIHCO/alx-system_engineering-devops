@@ -8,15 +8,13 @@ elif [[ "$length" -eq 3 ]]; then
 	file_path="$1"
 	server_ip="$2"
 	server_username="$3"
-	file_destination="~/"
 
-	scp -o StrictHostKeyChecking=no "$file_path" "$server_username@$server_ip:$file_destination"
+	scp -o StrictHostKeyChecking=no "$file_path" "$server_username@$server_ip:~"
 elif [[ "$length" -eq 4 ]]; then
 	file_path="$1"
 	server_ip="$2"
 	server_username="$3"
 	pk_path="$4"
-	file_destination="~/"
 
-	scp -i "$pk_path" "$file_path" "$server_username@$server_ip:$file_destination"
+	scp -i "$pk_path" -o StrictHostKeyChecking=no "$file_path" "$server_username@$server_ip:~"
 fi
