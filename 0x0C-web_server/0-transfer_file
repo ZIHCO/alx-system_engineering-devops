@@ -2,8 +2,15 @@
 # script that transfers a file from our client to a server
 
 length="$#"
-if [[ "$length" -le 3 ]]; then
+if [[ "$length" -lt 3 ]]; then
 	echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+elif [[ "$length" -eq 3 ]]; then
+	file_path="$1"
+	server_ip="$2"
+	server_username="$3"
+	file_destination="~/"
+
+	scp -o StrictHostKeyChecking=no "$file_path" "$server_username@$server_ip:$file_destination"
 elif [[ "$length" -eq 4 ]]; then
 	file_path="$1"
 	server_ip="$2"
@@ -11,5 +18,5 @@ elif [[ "$length" -eq 4 ]]; then
 	pk_path="$4"
 	file_destination="~/"
 
-	scp -o StrictHostKeyChecking=no "$file_path" "$server_username@$server_ip:$file_destination"
+	scp -i "$pk_path" "$file_path" "$server_username@$server_ip:$file_destination"
 fi
