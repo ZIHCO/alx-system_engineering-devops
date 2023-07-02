@@ -25,6 +25,6 @@ sed -i "s|server_name _;|$replacement_str|" /etc/nginx/sites-available/default
 echo "Ceci n'est pas une page" > /var/www/html/404.html
 modification_str="\tlocation / {\n\t\terror_page 404 /404.html;\n\t}"
 sed -i "/location \/ {/,/}/c\ $modification_str" /etc/nginx/sites-available/default
-
+# sed is editing a comment hence causing error
 
 service nginx restart
