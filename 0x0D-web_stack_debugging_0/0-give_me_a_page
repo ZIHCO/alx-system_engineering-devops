@@ -1,2 +1,4 @@
+#!/usr/bin/env bash
+# curl from server
 sed -i "s|ServerName 172.17.0.2|ServerName 0.0.0.0:8080|" /etc/apache2/sites-available/000-default.conf
 service apache2 restart
