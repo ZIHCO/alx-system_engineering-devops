@@ -18,7 +18,7 @@ echo "Hello World!" > /var/www/html/index*
 
 # redirect this page
 link="https://twitter.com/jamesmatics"
-replacement_str="server_name _;\n\tlocation /redirect_me {\n\t\treturn 301 $link;\n\t}\n\t\tadd_header Custom-Header "72117-web-02";"
+replacement_str="server_name _;\n\tlocation /redirect_me {\n\t\treturn 301 $link;\n\t}\n\t\tadd_header X-Served-By "72117-web-02";"
 sed -i "s|server_name _;|$replacement_str|" /etc/nginx/sites-available/default
 
 # create a not found page
