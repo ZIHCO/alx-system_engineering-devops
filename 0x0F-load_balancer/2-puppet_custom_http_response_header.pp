@@ -1,7 +1,7 @@
 # Install Nginx web server with Puppet
 include stdlib
 
-$link = 'https://www.youtube.com/watch?v=QH2-TGUlwu4'
+$link = 'https://www.twitter.com/jamesmatics'
 $content = "\trewrite ^/redirect_me/$ ${link} permanent;"
 $custom_header = "add_header X-Served-By \$hostname;"
 
