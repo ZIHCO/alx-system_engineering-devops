@@ -17,7 +17,7 @@ package { 'nginx':
 
 file { '/var/www/html/index.html':
   ensure  => 'present',
-  content => 'Hello world!',
+  content => 'Hello World!',
   node    => '06440',
   owner   => 'root',
   group   => 'root'
