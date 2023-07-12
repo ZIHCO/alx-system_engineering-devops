@@ -10,6 +10,6 @@ apt-get install haproxy=2.6.\* -y
 freplacement="frontend http\n\tbind *:80\n\tmode http\n\tdefault_backend web-backend\n"
 sed -i "$ a$freplacement" /etc/haproxy/haproxy.cfg
 # backend config
-replacement="backend web-backend\n\tmode http\n\tbalance roundrobin\n\tserver server1 52.91.134.149:80\n\tserver server2 54.90.62.231:80"
+replacement="backend web-backend\n\tmode http\n\tbalance roundrobin\n\tserver web1 52.91.134.149:80\n\tserver web2 54.90.62.231:80"
 sed -i "$ a$replacement" /etc/haproxy/haproxy.cfg
 service haproxy restart
