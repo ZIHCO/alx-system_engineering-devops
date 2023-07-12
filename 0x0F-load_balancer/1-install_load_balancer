@@ -6,6 +6,8 @@ sudo apt update
 sudo apt-get install --no-install-recommends software-properties-common -y
 sudo add-apt-repository ppa:vbernat/haproxy-2.0 -y
 sudo apt-get install haproxy=2.0.\* -y
+append="ENABLED=1"
+sudo sed -i "$ a$append" /etc/default/haproxy
 # frontend config
 freplacement="frontend http\n\tbind *:80\n\tmode http\n\tdefault_backend web-backend\n"
 sudo sed -i "$ a$freplacement" /etc/haproxy/haproxy.cfg
