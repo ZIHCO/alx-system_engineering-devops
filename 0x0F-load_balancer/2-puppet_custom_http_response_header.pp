@@ -1,7 +1,11 @@
-# automate a custom header response with puppet
+# Install Nginx web server with Puppet
 include stdlib
 
-exec { 'update package':
+$link = 'https://www.youtube.com/watch?v=QH2-TGUlwu4'
+$content = "\trewrite ^/redirect_me/$ ${link} permanent;"
+$custom_header = "add_header X-Served-By \$hostname;"
+
+exec { 'update packages':
   command => '/usr/bin/apt-get update'
 }
 
@@ -17,31 +21,28 @@ package { 'nginx':
 
 file { '/var/www/html/index.html':
   ensure  => 'present',
-  content => 'Hello World!',
-  node    => '06440',
+  content => 'Holberton School',
+  mode    => '0644',
   owner   => 'root',
   group   => 'root'
 }
 
-$line="location /redirect_me {/n/t/treturn 301 $link;\n\t}"
-$link="https://twitter.com/jamesmatics"
-
-file_line { 'redirection':
+file_line { 'Set 301 redirection':
   ensure   => 'present',
   after    => 'server_name\ _;',
   path     => '/etc/nginx/sites-available/default',
   multiple => true,
+  line     => $content,
   notify   => Exec['restart nginx'],
-  line     => $line,
   require  => File['/var/www/html/index.html']
 }
 
-file_line { 'X-Served-By header':
+file_line { 'Set X-Served-By header':
   ensure   => 'present',
   after    => 'http {',
   path     => '/etc/nginx/nginx.conf',
   multiple => true,
+  line     => $custom_header,
   notify   => Exec['restart nginx'],
-  line     => 'add_header X-Served-By \$hostname',
   require  => File['/var/www/html/index.html']
 }
