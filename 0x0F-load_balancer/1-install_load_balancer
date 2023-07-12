@@ -2,10 +2,14 @@
 # install and configure HAproxy on this server
 # distribute requests using a roundrobin algorithm
 
-apt-get install --no-install-recommends software-properties-common
-add-apt-repository ppa:vbernat/haproxy-2.6
-apt-get install haproxy=2.6.\*
-replacement="backend my_backend\n\tbalance roundrobin\n\tserver server1 52.91.134.149:22\n\tserver server2 54.90.62.231:22"
-sed -i "s|backend my_backend|$replacement" /etc/haproxy/haproxy.cfg
-
+apt update
+apt-get install --no-install-recommends software-properties-common -y
+add-apt-repository ppa:vbernat/haproxy-2.6 -y
+apt-get install haproxy=2.6.\* -y
+# frontend config
+freplacement="frontend http\n\tbind *:80\n\tmode http\n\tdefault_backend web-backend\n"
+sed -i "$ a$freplacement" /etc/haproxy/haproxy.cfg
+# backend config
+replacement="backend web-backend\n\tmode http\n\tbalance roundrobin\n\tserver server1 52.91.134.149:80\n\tserver server2 54.90.62.231:80"
+sed -i "$ a$replacement" /etc/haproxy/haproxy.cfg
 service haproxy restart
