@@ -39,8 +39,7 @@ file_line { 'redirect_me':
 }
 
 exec { 'insert_block':
-  command => 'sed -i "s|# location /redirct_me {|location /redirect_me {\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t}" /etc/nginx/sites-available/default',
-  path    => '/usr/bin:/bin'
+  command => '/usr/bin/sed -i "s|# location /redirct_me {|location /redirect_me {\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t}" /etc/nginx/sites-available/default',
 }
 
 exec { 'nginx restart':
