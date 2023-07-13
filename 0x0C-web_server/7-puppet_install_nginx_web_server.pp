@@ -4,7 +4,6 @@
 # When querying Nginx at its root / with a GET request (requesting a page)
 # using curl, it must return a page that contains the string Hello World!
 # The redirection must be a “301 Moved Permanently”.
-
 include stdlib
 
 exec { 'update apt':
@@ -33,7 +32,16 @@ file_line { 'redirect_me':
   ensure  => present,
   path    => '/etc/nginx/sites-available/default',
   after   => 'server\ _;',
-  line    => "location /redirect_me \{\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t\}",
-  notify  => Exec['nginx restart'],
+  line    => "location /redirect_me {",
   require => File['/var/www/html/index.html']
+}
+
+exec { 'insert_block':
+  command => 'sed -i "s|location /redirct_me {|location /redirect_me {\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t}" /etc/nginx/sites-available/default',
+  path    => '/usr/bin:/bin'
+}
+
+exec { 'nginx restart':
+  command => '/usr/sbin/service restart nginx',
+  require => Package['nginx']
 }
