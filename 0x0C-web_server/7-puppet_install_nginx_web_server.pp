@@ -22,7 +22,7 @@ package { 'nginx':
 }
 
 file { '/var/www/html/index.html':
-  ensure  => file,
+  ensure  => present,
   mode    => '0744',
   content => 'Hello World!',
   owner   => 'root',
