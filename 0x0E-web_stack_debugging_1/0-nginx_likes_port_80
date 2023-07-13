@@ -2,5 +2,5 @@
 # get nginx listening on port 80
 
 apt-get update
-apt install nginx
+apt install nginx -y
 service nginx restart
