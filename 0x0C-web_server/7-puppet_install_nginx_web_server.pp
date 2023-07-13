@@ -4,20 +4,19 @@
 # When querying Nginx at its root / with a GET request (requesting a page)
 # using curl, it must return a page that contains the string Hello World!
 # The redirection must be a “301 Moved Permanently”.
-include stdlib
 
-exec { 'update apt':
+exec { 'update packages':
   command => '/usr/bin/apt-get update'
 }
 
 exec { 'nginx restart':
-  command => '/usr/sbin/service restart nginx',
+  command => '/usr/sbin/service nginx restart',
   require => Package['nginx']
 }
 
 package { 'nginx':
   ensure  => installed,
-  require => Exec['update apt']
+  require => Exec['update packages']
 }
 
 file { '/var/www/html/index.html':
@@ -28,21 +27,7 @@ file { '/var/www/html/index.html':
   group   => 'root'
 }
 
-file_line { 'redirect_me':
-  ensure   => present,
-  path     => '/etc/nginx/sites-available/default',
-  after    => 'server\ _;',
-  line     => "# location /redirect_me {",
-  notify   => Exec['nginx restart'],
-  multiple => true,
-  require  => File['/var/www/html/index.html']
-}
-
 exec { 'insert_block':
-  command => '/usr/bin/sed -i "s|# location /redirct_me {|location /redirect_me {\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t}" /etc/nginx/sites-available/default',
-}
-
-exec { 'nginx restart':
-  command => '/usr/sbin/service restart nginx',
-  require => Package['nginx']
+  command => '/usr/bin/sed -i "s|server\ _;|server\ _;\n\tlocation /redirect_me {\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t}|" /etc/nginx/sites-available/default',
+  require => Exec['nginx restart']
 }
