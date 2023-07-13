@@ -33,7 +33,7 @@ file_line { 'redirect_me':
   ensure  => present,
   path    => '/etc/nginx/sites-available/default',
   after   => 'server\ _;',
-  line    => 'location /redirect_me \{\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t\}',
+  line    => "location /redirect_me \{\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t\}",
   notify  => Exec['nginx restart'],
   require => File['/var/www/html/index.html']
 }
