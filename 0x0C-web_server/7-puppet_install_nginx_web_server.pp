@@ -28,6 +28,6 @@ file { '/var/www/html/index.html':
 }
 
 exec { 'insert_block':
-  command => '/usr/bin/sed -i "s|server\ _;|server\ _;\n\tlocation /redirect_me {\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t}|" /etc/nginx/sites-available/default',
+  command => '/usr/bin/sed -i "s|server_name_;|server_name_;\n\tlocation /redirect_me {\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t}|" /etc/nginx/sites-available/default',
   require => Exec['nginx restart']
 }
