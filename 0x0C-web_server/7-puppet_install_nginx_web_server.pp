@@ -28,7 +28,7 @@ file { '/var/www/html/index.html':
 }
 
 exec { 'insert_block':
-  command => '/usr/bin/sed -i "s|server_name_;|server_name_;\n\tlocation /redirect_me {\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t}|" /etc/nginx/sites-available/default',
+  command => '/usr/bin/sed -i "s|server_name_;|server_name_;\n\trewrite^/redirect_me/$ https://twitter.com/jamesmatics permanent;|" /etc/nginx/sites-available/default',
   require => File['/var/www/html/index.html'],
   notify  => Exec['nginx restart']
 }
