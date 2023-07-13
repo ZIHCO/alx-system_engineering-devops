@@ -1,7 +1,7 @@
 # Install Nginx web server with Puppet
 include stdlib
 
-$link = 'https://www.twitter.com/jamesmatics'
+$link = 'https://twitter.com/jamesmatics'
 $content = "\trewrite ^/redirect_me/$ ${link} permanent;"
 
 exec { 'update packages':
