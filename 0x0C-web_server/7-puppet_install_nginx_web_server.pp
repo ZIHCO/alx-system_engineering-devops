@@ -1,34 +1,37 @@
-# Puppet manifest containing commands to automatically configure an
-# Ubuntu machine to respect above requirements:
-# ngnix shouldbe installed and listen on port 80
-# When querying Nginx at its root / with a GET request (requesting a page)
-# using curl, it must return a page that contains the string Hello World!
-# The redirection must be a “301 Moved Permanently”.
+# Install Nginx web server with Puppet
+include stdlib
+
+$link = 'https://www.youtube.com/watch?v=QH2-TGUlwu4'
+$content = "\trewrite ^/redirect_me/$ ${link} permanent;"
 
 exec { 'update packages':
   command => '/usr/bin/apt-get update'
 }
 
-exec { 'nginx restart':
+exec { 'restart nginx':
   command => '/usr/sbin/service nginx restart',
   require => Package['nginx']
 }
 
 package { 'nginx':
-  ensure  => installed,
+  ensure  => 'installed',
   require => Exec['update packages']
 }
 
 file { '/var/www/html/index.html':
-  ensure  => present,
-  mode    => '0744',
-  content => 'Hello World!',
+  ensure  => 'present',
+  content => 'Holberton School',
+  mode    => '0644',
   owner   => 'root',
   group   => 'root'
 }
 
-exec { 'insert_block':
-  command => '/usr/bin/sed -i "s|server_name_;|server_name_;\n\trewrite^/redirect_me/$ https://twitter.com/jamesmatics permanent;|" /etc/nginx/sites-available/default',
-  require => File['/var/www/html/index.html'],
-  notify  => Exec['nginx restart']
+file_line { 'Set 301 redirection':
+  ensure   => 'present',
+  after    => 'server_name\ _;',
+  path     => '/etc/nginx/sites-available/default',
+  multiple => true,
+  line     => $content,
+  notify   => Exec['restart nginx'],
+  require  => File['/var/www/html/index.html']
 }
