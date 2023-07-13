@@ -29,15 +29,17 @@ file { '/var/www/html/index.html':
 }
 
 file_line { 'redirect_me':
-  ensure  => present,
-  path    => '/etc/nginx/sites-available/default',
-  after   => 'server\ _;',
-  line    => "location /redirect_me {",
-  require => File['/var/www/html/index.html']
+  ensure   => present,
+  path     => '/etc/nginx/sites-available/default',
+  after    => 'server\ _;',
+  line     => "# location /redirect_me {",
+  notify   => Exec['nginx restart'],
+  multiple => true,
+  require  => File['/var/www/html/index.html']
 }
 
 exec { 'insert_block':
-  command => 'sed -i "s|location /redirct_me {|location /redirect_me {\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t}" /etc/nginx/sites-available/default',
+  command => 'sed -i "s|# location /redirct_me {|location /redirect_me {\n\t\treturn 301 https://twitter.com/jamesmatics;\n\t}" /etc/nginx/sites-available/default',
   path    => '/usr/bin:/bin'
 }
 
