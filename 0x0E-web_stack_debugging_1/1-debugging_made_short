@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# pkill restart nginx
+
+service nginx start
+pkill -1 nginx
