@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # pkill restart nginx
 
-service nginx start
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 pkill -1 nginx
