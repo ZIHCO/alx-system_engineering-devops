@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# get nginx listening on port 80
+# start nginx engine
 
-ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 service nginx start
