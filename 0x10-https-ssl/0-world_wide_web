@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# a script that displays info about subdomain
+
+domain=$1
+
+if [ "$2" ] ; then
+	subdomain=("$2")
+else
+	subdomain=("www" "lb-01" "web-01" "web-02")
+fi
+
+myfunc ()
+{
+	length=${#subdomain[@]}
+
+	for (( i=0 ; i < "$length" ; i++ )) ; do
+		url="${subdomain[$i]}"."$domain"
+		ip=$(dig "$url" | awk '/;; ANSWER SECTION:/{getline;print $NF;}')
+
+		echo "The subdomain ""${subdomain[$i]}"" is a A record and points to ""$ip"
+	done
+}
+
+myfunc
