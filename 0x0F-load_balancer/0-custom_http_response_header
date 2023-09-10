@@ -8,7 +8,7 @@
 
 # uninstall old nginx
 if dpkg -s nginx &> /dev/null; then
-	apt purge nginx nginx-full nginx-common &> /dev/null
+	apt purge nginx nginx-full nginx-common -y &> /dev/null
 fi
 
 # install nginx
