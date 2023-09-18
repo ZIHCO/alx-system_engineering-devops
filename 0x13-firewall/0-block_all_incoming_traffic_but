@@ -5,18 +5,14 @@
 if dpkg ufw &> /dev/null ; then
 	sudo apt remove ufw
 	sudo apt install ufw
-	sudo ufw default allow outgoing
-	sudo ufw default deny incoming
 	sudo ufw allow 22/OpenSSH
-	sudo ufw allow 443/HTTPS
+	sudo ufw allow 443/TCP
 	sudo ufw allow 80/HTTP
 	sudo ufw enable
 else
 	sudo apt install ufw
-	sudo ufw default allow outgoing
-	sudo ufw default deny incoming
 	sudo ufw allow 22/OpenSSH
-	sudo ufw allow 443/HTTPS
+	sudo ufw allow 443/TCP
 	sudo ufw allow 80/HTTP
 	sudo ufw enable
 fi
