@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # return this user
 chsh -s "$(which bash)" "$1"
-su "$1" -c "whoami"
+su "$1" -c "$(whoami)"
