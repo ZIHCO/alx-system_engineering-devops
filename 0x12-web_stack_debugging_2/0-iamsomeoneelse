@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 # return this user
-chsh -s "$(which bash)" "$1"
-su "$1" -c "$(whoami)"
+
+if [[ "$(whoami)" == "root" ]] ; then
+	echo "$1"
+fi
