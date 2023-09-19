@@ -16,3 +16,5 @@ else
 	sudo ufw allow 443
 	sudo ufw allow 80
 fi
+
+sudo service ufw start
