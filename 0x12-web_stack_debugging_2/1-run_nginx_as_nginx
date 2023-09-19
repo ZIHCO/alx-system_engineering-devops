@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+sed -i "s|root|nginx|" /etc/nginx/sites-available/default
+sed -i "s|80|8080|" /etc/nginx/sites-available/default
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
