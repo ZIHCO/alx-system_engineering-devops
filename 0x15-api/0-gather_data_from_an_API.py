@@ -21,9 +21,7 @@ if __name__ == "__main__":
             if item['completed']:
                 completed_tasks += 1
                 task_list.append(item['title'])
-    print(
-        get_bio['name'] + ' is done with tasks(' + str(completed_tasks) +
-        '/' + str(total_tasks) + '):'
-        )
+    print(get_bio['name'] + ' is done with tasks(' + str(completed_tasks) +
+          '/' + str(total_tasks) + '):')
     for task in task_list:
         print('\t ' + task)
